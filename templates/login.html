@@ -1,0 +1,45 @@
+{% include 'public_header.html'%}
+
+
+    <center>
+        <h1 style="margin-top: 200px;">Login Here</h1>
+        <form method="post">
+            <table>
+                <tr>
+             
+                    <td><input type="text" name="uname" class="form-control" placeholder="Username" required></td>
+                </tr>
+                <tr>
+              
+                    <td><input type="password" name="psw" class="form-control" placeholder="Password" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align=center><input type="submit" name="submit" class="btn btn-success"></td>
+                </tr>
+            </table>
+        </form>
+    </center>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    <div>
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endwith %}
+
+<br><br><br><br><br>
+    {% include 'footer.html'%}
+
+
+    <style>
+        th,td,input{
+
+            color: black;
+            text-align: center;
+        }
+
+    </style>
+   

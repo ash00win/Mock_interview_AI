@@ -1,0 +1,52 @@
+{% include 'user_header.html' %}
+  
+<center>
+    <h3 style="margin-top: 150px;">Send Complaint</h3>
+    <form method="post">
+        <table style="margin-top: 40px;">
+          
+            <tr>
+                <td><textarea name="com" rows="4" cols="30" class="form-control" required placeholder="Enter Your Complaint Here"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="submit" class="btn btn-success"></td>
+            </tr>
+        </table>
+    </form>
+
+
+    <table class="table" style="margin-top: 100px;">
+        <thead class="table-dark">
+
+      
+        <tr>
+            <th>Complaint</th>
+            <th>Date</th>
+            <th>Reply</th>
+            <th></th>
+        </tr>
+    </thead>
+        {% for i in r%}
+        <tr>
+            <td>{{i.complaint}}</td>
+            <td>{{i.date}}</td>
+            <td>{{i.reply}}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+<br><br><br><br>
+
+
+{% include 'footer.html'%}
+
+
+<style>
+    textarea,th,td{
+        text-align: center;
+    }
+
+   
+</style>

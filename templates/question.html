@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Question</title>
+</head>
+<body>
+    <h1>Role: {{ role }}</h1>
+    <h2>Question:</h2>
+    <p id="question_text">{{ question }}</p>
+
+    <!-- Button to manually trigger text-to-speech -->
+    <button onclick="speakText()">Listen</button>
+
+    <form action="/next_question" method="post">
+        <input type="hidden" name="question_id" value="{{ question_id }}">
+        <input type="hidden" name="role" value="{{ role }}">
+        <button type="submit">Next Question</button>
+    </form>
+
+    <script>
+        // Function to handle text-to-speech
+        function speakText() {
+            var questionText = document.getElementById('question_text').innerText;
+            var speech = new SpeechSynthesisUtterance(questionText);
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
+</body>
+</html>

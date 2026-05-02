@@ -1,0 +1,58 @@
+{% include 'admin_header.html' %}
+
+<center>
+    <h3 style="margin-top: 150px;">Send Notification</h3>
+    <form method="post">
+        <table style="margin-top: 40px;">
+            <tr>
+                <td><input type="text" name="title" class="form-control" required placeholder="Title"></td>
+            </tr>
+            <tr>
+                <td><textarea name="not" rows="7" cols="30" class="form-control" required placeholder="Description"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="submit" class="btn btn-success"></td>
+            </tr>
+        </table>
+    </form>
+
+
+    <table class="table" style="margin-top: 100px;">
+        <thead class="table-dark">
+
+      
+        <tr>
+            <th>Title</th>
+            <th>Notification</th>
+            <th>Date Time</th>
+            <th></th>
+        </tr>
+    </thead>
+        {% for i in r%}
+        <tr>
+            <td>{{i.title}}</td>
+            <td>{{i.description}}</td>
+            <td>{{i.date_time}}</td>
+            <td><a href="?action=delete&id={{i.notification_id}}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+<br><br><br><br>
+
+{% include 'footer.html' %}
+
+
+<style>
+    input{
+        text-align: center;
+    }
+    textarea{
+        vertical-align: middle;
+        text-align: center;
+    }
+    th,td{
+        text-align: center;
+    }
+</style>

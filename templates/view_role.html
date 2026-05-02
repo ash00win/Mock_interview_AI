@@ -1,0 +1,26 @@
+{% include 'user_header.html' %}
+  
+  
+
+<center>
+    <table class="table" style="margin-top: 100px;" >
+        <tr>
+            <th><h3>Role</h3></th>
+        </tr>
+        {% for i in r%}
+        <tr>
+            <td>{{i.role_name}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+<br><br><br><br><br>
+{% include 'footer.html'%}
+
+
+<style>
+    th,td{
+        text-align: center;
+    }
+</style>

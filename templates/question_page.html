@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Index - FlexStart Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="static/assets/img/favicon.png" rel="icon">
+  <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="static/assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="/userhome" class="logo d-flex align-items-center me-auto">
+        <img src="static/assets/img/logo.png" alt="">
+        <h1 class="sitename">MockAI</h1>
+      </a>
+    </div>
+  </header>
+
+<center>
+    <h1 style="margin-top: 100px;">Role: {{ role }}</h1>
+    <h2>Question:</h2>
+    <h4><p id="question_text">{{ question }}</p></h4>
+
+    <!-- Display the message if available -->
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <!-- Recording controls -->
+    <button id="start-recording" class="btn btn-danger">Start Recording</button>
+    <button id="stop-recording" disabled class="btn btn-warning">Stop Recording</button>
+
+    <!-- Display the converted text -->
+    <p id="converted-text"></p>
+
+    <!-- Hidden form to submit the answer -->
+    <form id="submit-answer-form" action="/submit_answer" method="post">
+        <input type="hidden" name="question_id" value="{{ question_id }}" class="form-control">
+        <input type="hidden" name="role" value="{{ role }}" class="form-control">
+        <input type="hidden" name="user_answer" id="user_answer" class="form-control">
+        <button type="submit" disabled id="submit-answer" class="btn btn-success">Submit Answer</button>
+    </form>
+
+    <script>
+        let recognition;
+        let isRecording = false;
+
+        // Initialize speech recognition
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = false; // Single input
+            recognition.interimResults = false; // No interim results
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function() {
+                isRecording = true;
+                document.getElementById('start-recording').disabled = true;
+                document.getElementById('stop-recording').disabled = false;
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('converted-text').innerText = 'You said: ' + transcript;
+                document.getElementById('user_answer').value = transcript; // Set the hidden input
+                document.getElementById('submit-answer').disabled = false; // Enable the submit button
+            };
+
+            recognition.onerror = function(event) {
+                console.log('Error occurred in recognition: ' + event.error);
+            };
+        } else {
+            alert('Your browser does not support speech recognition.');
+        }
+
+        // Start recording
+        document.getElementById('start-recording').onclick = function() {
+            if (!isRecording) {
+                recognition.start();
+            }
+        };
+
+        // Stop recording
+        document.getElementById('stop-recording').onclick = function() {
+            if (isRecording) {
+                recognition.stop(); // Stop recording when the button is pressed
+                isRecording = false; // Update the recording status
+                document.getElementById('start-recording').disabled = false; // Enable start button
+                document.getElementById('stop-recording').disabled = true; // Disable stop button
+            }
+        };
+
+        // Reset the form when a new recording is started
+        recognition.onend = function() {
+            document.getElementById('start-recording').disabled = false;
+            document.getElementById('stop-recording').disabled = true; // Disable stop button
+        };
+    </script>
+</center>
+
+<br><br><br><br><br>
+{% include 'footer.html'%}
+</body>
+</html>

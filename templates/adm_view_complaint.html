@@ -1,0 +1,38 @@
+{% include 'admin_header.html' %}
+
+<center>
+    <table class="table" style="margin-top: 150px;">
+        <thead class="table-dark">
+        <tr>
+            <th>Complaint</th>
+            <th>Reply</th>
+            <th>Date</th>
+            <th></th>
+           
+       
+        </tr>
+    </thead>
+        {% for i in r %}
+        <tr>
+            <td>{{i.complaint}}</td>
+            <td>{{i.reply}}</td>
+            <td>{{i.date}}</td>
+            {% if i.reply == 'pending' %}
+            <td><a href="/reply?id={{i.complaint_id}}">Reply</a></td>
+            {% endif %}
+      
+
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+
+<br><br><br><br><br>
+{% include 'footer.html' %}
+
+<style>
+    th,td{
+        text-align: center;
+    }
+</style>

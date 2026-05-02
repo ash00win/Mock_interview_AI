@@ -1,0 +1,25 @@
+{% include 'user_header.html'%}
+
+<center>
+
+
+
+<h3 style="margin-top: 200px;">You have completed all the questions for this role</h3>
+
+You have Got {{per}} percentage for this exam <br><br>
+
+{% if emotion %}
+<h2>Emotion Detected: {{ emotion }}</h2>
+<p>Confidence Score: {{ '%.2f' | format(confidence) }}%</p>
+{% else %}
+<p>No emotion detected.</p>
+{% endif %}
+
+
+
+
+</center>
+
+<br><br><br><br><br>
+
+{% include 'footer.html'%}

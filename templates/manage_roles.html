@@ -1,0 +1,38 @@
+{% include 'admin_header.html' %}
+
+<center>
+    <h2 style="margin-top: 100px;">Manage Roles</h2>
+    <form method="post">
+        <table style="margin-top: 50px;">
+        <tr>
+            <th>Add Roles</th>
+            <td><input type="text" name="role" class="form-control"></td>
+            <td colspan="2" align="center"><input type="submit" name="submit" class="btn btn-success"></td>
+        </tr>
+      
+        </table>
+</form>
+
+<table style="margin-top: 60px;" class="table">
+    <tr>
+        <th><h3>Role</h3> </th>
+    </tr>
+    {% for i in r%}
+    <tr>
+        <td>{{i.role_name}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</center>
+
+
+<br><br><br><br><br>
+
+{% include 'footer.html' %}
+
+
+<style>
+    th,td{
+        text-align: center;
+    }
+</style>
