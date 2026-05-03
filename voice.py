@@ -2,6 +2,10 @@ import google.generativeai as genai
 from flask import Flask, request, render_template, jsonify
 import pymysql
 from difflib import SequenceMatcher
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -9,8 +13,10 @@ app = Flask(__name__)
 db = pymysql.connect(host='localhost', user='root', password='12345', db='ai_interview')
 cursor = db.cursor()
 
-# Google Gemini API Key
-GOOGLE_API_KEY = 'YOUR_NEW_KEY_PLACEHOLDER'
+# Google Gemini API Key from environment variable
+GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
+if not GOOGLE_API_KEY:
+    raise ValueError("GOOGLE_API_KEY environment variable is not set")
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Selecting the appropriate model for content generation
